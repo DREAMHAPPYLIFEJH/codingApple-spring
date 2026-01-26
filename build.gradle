@@ -26,6 +26,8 @@ dependencies { // 라이브러리 설치 설정
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     runtimeOnly 'com.mysql:mysql-connector-j' // runtimeOnly는 런타임에만 사용되는 라이브러리라는 뜻, 컴파일시 사용되지않음
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
