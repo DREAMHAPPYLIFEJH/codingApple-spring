@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString // ToString함수를 자동으로 만들어줌
 public class Item {
     // static은 원본 그대로를 사용하는 함수이다.
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Getter
     public Long Id;
     
     @Setter @Getter // 자동으로 setter, getter함수를 만들어줌

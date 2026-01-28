@@ -2,18 +2,13 @@ package com.jhcompany.demo; // 파일의 경로가 이렇게 명시되어있지�
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 // Azure로 mysql db배포
 // DB Browser plugin으로 db관리 + DBeaver프로그램으로 db 데이터 확인
@@ -80,5 +75,28 @@ public class ItemController {
         itemRepository.save(item);
 
         return "redirect:/list";
+    }
+    // ERROR : id에 문자 abc가 들어오면 자동으로 에러페이지로 이동함. error.html을 생성하면 error페이지로 이동
+    // 400 - 유저 fault, 500 - 서버 fault
+    @GetMapping("/detail/{id}") // {id} 자리에 들어온 값이 동적으로 컨트롤러 메서드로 전달됩니다.
+    String detail1(@PathVariable Long id, Model model) {
+        try {
+            Optional<Item> result = itemRepository.findById(id);
+            if(result.isPresent()) {
+                model.addAttribute("data", result.get());
+                return "detail.html";
+            } else {
+                return "redirect:/list";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
+//          return ResponseEntity.status(400).body("니잘못임"); // 이건 itemRepo에서의 데이터 받는 에러만 처리됨. type에러는 안됨.
+        }
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handler(Exception e) {
+        return ResponseEntity.status(400).body("에러입니다");
     }
 }
