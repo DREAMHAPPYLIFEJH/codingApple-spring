@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,33 +27,21 @@ import java.util.*;
 public class ItemController {
 
     private final ItemRepository itemRepository;
-//    @Autowired
+    private final ItemService itemService;
+    // Spring에게 @Controller같은 annotation을 붙이면 Spring IoC Container에 controller같은 bean객체를 집어넣음.
+
+//    @Autowired --> 스프링에게 알아서 Repo Object를 넣으라는 뜻
 //    public ItemController(ItemRepository itemRepository) {
 //        this.itemRepository = itemRepository;
 //    }
 
     @GetMapping("/list") // 이 URL에 방문해야 아래의 함수가 실행됨
     String list(Model model) {
-//        ArrayList<Object> a = new ArrayList<>(); // List(상위) <- ArrayList(하위), LinkedList(하위)
-//        a.add(30);
-//        a.add(40);
-//        System.out.println(a.get(0));
-//        System.out.println(a.get(1));
-
-        var a = new Item();
-        System.out.println(a);
-
-        var b = new Human();
-        b.setName("이지훈");
-        b.setAge(20);
-        b.한살더하기();
-        b.나이설정(22);
-        System.out.println(b.getAge() + b.getName());
-
         var result = itemRepository.findAll();
         model.addAttribute("items", result);
         return "list.html";
     }
+
     // GET방식 : URL에 데이터가 보임 EX) search?keyword=노트북
     @GetMapping("/write")
     String write() {
@@ -63,20 +52,45 @@ public class ItemController {
     @PostMapping("/add")
     String addPost(String title, Integer price) { // URL로부터 데이터를 받는 어노테이션(그냥 맞춰쓰면됨)
         // 유저가 보낸 데이터를 검증하고 전송함.
-//        Map<String, Object> test = new HashMap<>();
-//        test.put("name", "kim");
-//        test.put("age", 20);
-
         // 서버에서 데이터를 받아서 Item 테이블에 저장해주는 기능을 제공
         // 1. 서버에서 데이터를 받음 2. 받은 데이터를 sql에 저장
-        Item item = new Item();
-        item.setTitle(title);
-        item.setPrice(price);
-        itemRepository.save(item);
+        itemService.saveItem(title, price);
 
         return "redirect:/list";
     }
-    // ERROR : id에 문자 abc가 들어오면 자동으로 에러페이지로 이동함. error.html을 생성하면 error페이지로 이동
+    
+    // edit 조회
+    @GetMapping("/edit/{id}")
+    String editForm(@PathVariable Long id, Model model) {
+        // 1. list.html에 수정버튼 만들기 2. edit.html파일 만들고
+        // 1. 유저가 입력한 데이터를 db에 전송 2. 입력한 데이터를 db에 입력 3. 다시 edit.html에 출력
+        try {
+            Optional<Item> result = itemRepository.findById(id);
+            if(result.isPresent()) {
+                model.addAttribute("data", result.get());
+                return "edit.html";
+            } else {
+                return "redirect:/list";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
+//          return ResponseEntity.status(400).body("니잘못임"); // 이건 itemRepo에서의 데이터 받는 에러만 처리됨. type에러는 안됨.
+        }
+    }
+
+    // 한번에 모든걸 만들려고하면 어려움
+    // edit 수정
+    @Transactional // SQL Transaction을 자동으로 실행해줌
+    @PostMapping("/edit/{id}") // PathVariable - url연결 vari / RequestParam - html로부터 전달된 param
+    String editItem(@PathVariable Long id, @RequestParam String title, @RequestParam Integer price) {
+        itemService.editItem(id, title, price);
+        // 예외처리 1. price값에 음수값 입력 2. title값을 100자 이상 작성
+
+        return "redirect:/list";
+    }
+    
+    // ERROR : url id에 문자 abc가 들어오면 자동으로 에러페이지로 이동함. error.html을 생성하면 error페이지로 이동
     // 400 - 유저 fault, 500 - 서버 fault
     @GetMapping("/detail/{id}") // {id} 자리에 들어온 값이 동적으로 컨트롤러 메서드로 전달됩니다.
     String detail1(@PathVariable Long id, Model model) {
