@@ -1,4 +1,4 @@
-package com.jhcompany.demo;
+package com.jhcompany.demo.Item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

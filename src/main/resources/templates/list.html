@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="/main.css" rel="stylesheet">
-
 </head>
 <body>
     <div th:replace=" ~{ nav.html::navbar }"></div>
@@ -15,9 +14,33 @@
     <div class="card" th:each="i : ${items}">
         <img src="https://placehold.co/300">
         <div>
-            <h4 th:text="${i.title}">비싼 바지</h4>
+            <a th:href="@{/detail/{id}(id=${i.id})}">
+                <h4 th:text="${i.title}">비싼 바지</h4>
+            </a>
             <p th:text="${i.price}">7억</p>
+            <a th:href="@{/edit/{id}(id=${i.id})}" class="btn">
+                <button type="button">✏️ 상품수정</button>
+            </a>
+            <a class="delete-btn" th:attr="data-id=${i.id}">
+                <button type="button">🗑️ 상품 삭제</button>
+            </a>
         </div>
     </div>
+    <button class="btn1">버튼</button>
+
+<script>
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const ok = confirm('삭제하시겠습니까?');
+
+            if (ok) {
+                fetch(`/delete/${btn.dataset.id}`, {
+                    method : 'POST'
+                }).then(() => location.reload());
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

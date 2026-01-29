@@ -1,14 +1,12 @@
-package com.jhcompany.demo; // 파일의 경로가 이렇게 명시되어있지않으면 class를 쓸 수 없음
+package com.jhcompany.demo.Item; // 파일의 경로가 이렇게 명시되어있지않으면 class를 쓸 수 없음
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.ZonedDateTime;
 import java.util.*;
 
 // Azure로 mysql db배포
@@ -22,6 +20,7 @@ import java.util.*;
 // JPA 입출력을 위해서는 1. repo를 만들고 2. Controller 클래스에 repo를 등록하고 3. repo.입출력함수() 사용
 // th:each라는 html 반복문을 사용해서 card를 여러개 생성할 수 있음.
 // 개발자는 처음보는 것도 응용해서 사용할줄 알아야한다.
+// AJAX(Asynchronous JavaScript And XML) : 비동기적으로 화면 새로고침없이 서버와 데이터를 통신하는 방법
 @Controller
 @RequiredArgsConstructor // final필드나 @NonNull이 붙은 필드에대한 생성자를 자동으로 생성
 public class ItemController {
@@ -42,13 +41,13 @@ public class ItemController {
         return "list.html";
     }
 
-    // GET방식 : URL에 데이터가 보임 EX) search?keyword=노트북
+    // GET방식 : URL에 데이터가 보임 EX) search?keyword=노트북 / 데이터 조회
     @GetMapping("/write")
     String write() {
         return "write.html";
     }
 
-    // POST방식 : URL에 데이터가 보이지않음
+    // POST방식 : URL에 데이터가 보이지않음(데이터를 보낸다(바꾼다))
     @PostMapping("/add")
     String addPost(String title, Integer price) { // URL로부터 데이터를 받는 어노테이션(그냥 맞춰쓰면됨)
         // 유저가 보낸 데이터를 검증하고 전송함.
@@ -107,6 +106,18 @@ public class ItemController {
             return "error.html";
 //          return ResponseEntity.status(400).body("니잘못임"); // 이건 itemRepo에서의 데이터 받는 에러만 처리됨. type에러는 안됨.
         }
+    }
+
+    @GetMapping("/test1") // query string 전송방식 : url 뒤에 ?이름=값&~~ 형식의 데이터를 나열하여 데이터를 전송
+    String test1(@RequestParam String age) { // @RequestBody는 POST방식 body,
+        System.out.println(age);
+        return "redirect:/list";
+    }
+    
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
+        itemRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @ExceptionHandler(Exception.class)
