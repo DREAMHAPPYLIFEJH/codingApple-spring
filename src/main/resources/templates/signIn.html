@@ -6,13 +6,17 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
 </head>
 <body>
     <div th:replace=" ~{ nav.html::navbar }"></div>
 
-    <form action="/signIn" method="POST">
-        <input name="id">
-        <input name="pw">
+    <h4>✅ You Can Sign In Here! </h4>
+
+    <form action="/addUser" method="POST">
+        <a></a>
+        <input name="id" placeholder="type your id">
+        <input name="pw" placeholder="type your password">
         <button type="submit">전송</button>
     </form>
 </body>

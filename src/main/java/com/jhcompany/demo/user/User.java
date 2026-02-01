@@ -1,4 +1,4 @@
-package com.jhcompany.demo;
+package com.jhcompany.demo.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +19,4 @@ public class User {
 
     @Getter @Setter
     String password;
-
-    @Getter @Setter
-    String displayName;
 }
