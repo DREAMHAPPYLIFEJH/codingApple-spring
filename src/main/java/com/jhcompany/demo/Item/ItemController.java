@@ -1,6 +1,8 @@
 package com.jhcompany.demo.Item; // 파일의 경로가 이렇게 명시되어있지않으면 class를 쓸 수 없음
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,6 +122,16 @@ public class ItemController {
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         itemRepository.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/list/page/{num}")
+    public String getListPage(Model model, @PathVariable int num) {
+        Page<Item> result = itemRepository.findPageBy(PageRequest.of(num - 1,5));
+        var totalPages = result.getTotalPages(); // 전체 페이지수
+        model.addAttribute("items", result);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", num);
+        return "list.html";
     }
 
     @ExceptionHandler(Exception.class)

@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.Authenticator;
 
@@ -52,5 +53,25 @@ public class MemberController {
         CustomUser result = (CustomUser) auth.getPrincipal();
         System.out.println(result.displayName);
         return "mypage.html";
+    }
+
+    @GetMapping("/user/1")
+    @ResponseBody // 문자 그대로를 스크린에 전송시켜줌
+    public MemberDTO getUser() {
+        var a = memberRepository.findById(1L);
+        var result = a.get();
+        var data = new MemberDTO(result.getDisplayName(), result.getUserid());
+
+        return data; // Spring이 자동으로 Json형식으로 web에 전송함.
+    }
+}
+
+class MemberDTO { // 장점 : DTO는 타입추론이 쉬움
+    public String username;
+    public String displayName;
+
+    MemberDTO(String username, String displayName) {
+        this.displayName = displayName;
+        this.username = username;
     }
 }
