@@ -10,15 +10,18 @@
 
 </head>
 <body>
-    <div th:replace=" ~{ nav.html::navbar }"></div>
+<div th:replace=" ~{ nav.html::navbar }"></div>
 
-    <form action="/add" method="POST">
-<!--        <input type="hidden" -->
-<!--               th:name="${_csrf.parameterName}" -->
-<!--               th:value="${_csrf.token}">-->
-        <input name="title">
-        <input name="price">
-        <button type="submit">전송</button>
-    </form>
+<h4>✅ You Can Login In Here! </h4>
+
+<div th:if="${param.error}">
+    <h4>아이디나 비번이 틀림</h4>
+</div>
+
+<form action="/login" method="POST">
+    <input name="username" placeholder="typing login id">
+    <input name="password" placeholder="typing login pw">
+    <button type="submit">전송</button>
+</form>
 </body>
 </html>

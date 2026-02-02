@@ -1,9 +1,7 @@
 package com.jhcompany.demo;
 
-import com.jhcompany.demo.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.ZonedDateTime;
@@ -17,19 +15,13 @@ import java.time.ZonedDateTime;
 public class BasicController {
     @GetMapping("/")
     String hello() {
-        return "index.html";
+        return "main.html";
     }
 
     @GetMapping("/about")
     @ResponseBody // 문자 데이터를 그대로 보내는 문법
     String about() {
         return "피싱사이트에요";
-    }
-
-    @GetMapping("/mypage")
-    @ResponseBody
-    String myPage() {
-        return "내 마이페이지에요";
     }
 
     @GetMapping("/date")

@@ -9,6 +9,6 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handler(Exception e) {
-        return ResponseEntity.status(400).body("에러입니다");
+        return ResponseEntity.status(400).body("진짜 에러입니다");
     }
 }

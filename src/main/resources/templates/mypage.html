@@ -10,15 +10,15 @@
 
 </head>
 <body>
-    <div th:replace=" ~{ nav.html::navbar }"></div>
+<div th:replace=" ~{ nav.html::navbar }"></div>
 
-    <form action="/add" method="POST">
-<!--        <input type="hidden" -->
-<!--               th:name="${_csrf.parameterName}" -->
-<!--               th:value="${_csrf.token}">-->
-        <input name="title">
-        <input name="price">
-        <button type="submit">전송</button>
-    </form>
+<h4>✅ 마이 페이지 </h4>
+
+<div sec:authentication="principal"></div>
+<div sec:authentication="principal.username"></div>
+<div sec:authorize="hasAuthority('일반 유저')">
+    <h4>이 유저는 일반유저 권한임</h4>
+</div>
+
 </body>
 </html>

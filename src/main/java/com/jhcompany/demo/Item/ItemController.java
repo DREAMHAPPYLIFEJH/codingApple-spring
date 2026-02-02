@@ -122,8 +122,6 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
-
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handler(Exception e) {
         return ResponseEntity.status(400).body("에러입니다");

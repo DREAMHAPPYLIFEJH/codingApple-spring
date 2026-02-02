@@ -1,4 +1,4 @@
-package com.jhcompany.demo.user;
+package com.jhcompany.demo.member;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,13 +10,17 @@ import lombok.ToString;
 
 @Entity
 @ToString
-public class User {
+@Getter @Setter
+public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Getter @Setter
-    String userid;
+    private String userid;
 
     @Getter @Setter
-    String password;
+    private String displayName;
+
+    @Getter @Setter
+    private String password;
 }
