@@ -29,6 +29,7 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final S3service s3service;
     // Spring에게 @Controller같은 annotation을 붙이면 Spring IoC Container에 controller같은 bean객체를 집어넣음.
 
 //    @Autowired --> 스프링에게 알아서 Repo Object를 넣으라는 뜻
@@ -36,11 +37,12 @@ public class ItemController {
 //        this.itemRepository = itemRepository;
 //    }
 
+    // !!! error : list.html파일에서 totalPages, currentPage 데이터를 사용해서 ui를 구성해서 이 GetMapping은 적용되지않음.
     @GetMapping("/list") // 이 URL에 방문해야 아래의 함수가 실행됨
     String list(Model model) {
         var result = itemRepository.findAll();
         model.addAttribute("items", result);
-        return "list.html";
+        return "/list/pages/1";
     }
 
     // GET방식 : URL에 데이터가 보임 EX) search?keyword=노트북 / 데이터 조회
@@ -57,7 +59,7 @@ public class ItemController {
         // 1. 서버에서 데이터를 받음 2. 받은 데이터를 sql에 저장
         itemService.saveItem(title, price);
 
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
     
     // edit 조회
@@ -132,6 +134,18 @@ public class ItemController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", num);
         return "list.html";
+    }
+
+    // Presigned URL : 유저가 서버를 거치지않고 서버로부터 Presigned URL을 받아 fetch방식으로 이미지를 업로드
+    // 단점 : 이상한 이미지를 upload하는 걸 막을 수 없음.
+    // 엔드포인트 : 네트워크에 연결되어있는 모든 물리적 장치
+    // 기능 : aws s3에 folder를 만들고 image를 업로드
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    public String getURL(@RequestParam String filename) { // onchange에 getURL함수를 연동시켜놓음
+        var result = s3service.createPresignedUrl("images/" + filename); // test/파일이름 경로로 이미지 파일을 저장함.
+        System.out.println(result);
+        return result;
     }
 
     @ExceptionHandler(Exception.class)

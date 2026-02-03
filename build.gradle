@@ -31,6 +31,8 @@ dependencies { // 라이브러리 설치 설정
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
     implementation 'org.springframework.session:spring-session-jdbc'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'  //spring boot 3.x 버전
+    implementation "io.awspring.cloud:spring-cloud-aws-starter-s3:4.0.0-M1"  //spring boot 4.x 버전
 }
 
 tasks.named('test') {

@@ -20,5 +20,32 @@
         <input name="price">
         <button type="submit">전송</button>
     </form>
+
+    <input type="file" onchange="getURL(this)">
+
+    <img src="">
+<!--    이미지를 보여주는 자리, 이미지를 src에 입력함, 여기서 return된 image url을 db에 같이 저장-->
+
+    <script>
+        async function getURL(e) {
+            let name = encodeURIComponent(e.files[0].name)
+            let result = await fetch('/presigned-url?filename=' + name)
+            result = await result.text()
+
+            let 결과 = await fetch(result, {
+                method : 'PUT',
+                body : e.files[0]
+            })
+
+            console.log(결과)
+            console.log(결과.url.split("?")[0])
+
+            if (결과.ok) {
+                document.querySelector('img').src = 결과.url.split("?")[0]
+            }
+
+        }
+    </script>
+
 </body>
 </html>
