@@ -23,6 +23,8 @@ import java.util.*;
 // th:each라는 html 반복문을 사용해서 card를 여러개 생성할 수 있음.
 // 개발자는 처음보는 것도 응용해서 사용할줄 알아야한다.
 // AJAX(Asynchronous JavaScript And XML) : 비동기적으로 화면 새로고침없이 서버와 데이터를 통신하는 방법
+// VPC(Virtual Private Cloud) : 클라우드 환경에서 논리적으로 격리된 가상의 네트워크 공간
+// java -jar 어쩌구.jar 명령어를 터미널에서 타이핑하면 웹서버가 실행
 @Controller
 @RequiredArgsConstructor // final필드나 @NonNull이 붙은 필드에대한 생성자를 자동으로 생성
 public class ItemController {
