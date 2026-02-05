@@ -1,17 +1,14 @@
 package com.jhcompany.demo.member;
 
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -36,12 +33,3 @@ public class MyUserDetailService implements UserDetailsService {
     }
 }
 
-class CustomUser extends User {
-    public String displayName;
-    public CustomUser(String username,
-                      @Nullable String password,
-                      Collection<? extends GrantedAuthority> authorities
-    ) {
-        super(username, password, authorities);
-    }
-}

@@ -44,7 +44,7 @@ public class ItemController {
     String list(Model model) {
         var result = itemRepository.findAll();
         model.addAttribute("items", result);
-        return "/list/pages/1";
+        return "/list";
     }
 
     // GET방식 : URL에 데이터가 보임 EX) search?keyword=노트북 / 데이터 조회
@@ -61,7 +61,7 @@ public class ItemController {
         // 1. 서버에서 데이터를 받음 2. 받은 데이터를 sql에 저장
         itemService.saveItem(title, price);
 
-        return "redirect:/list/page/1";
+        return "redirect:/list";
     }
     
     // edit 조회
@@ -141,7 +141,7 @@ public class ItemController {
     // Presigned URL : 유저가 서버를 거치지않고 서버로부터 Presigned URL을 받아 fetch방식으로 이미지를 업로드
     // 단점 : 이상한 이미지를 upload하는 걸 막을 수 없음.
     // 엔드포인트 : 네트워크에 연결되어있는 모든 물리적 장치
-    // 기능 : aws s3에 folder를 만들고 image를 업로드
+    // 기능 : aws s3에 folder를 만들고 image를 업로드 -> 업로드된 이미지를 가져와서 getListPage함수에 넣어주면 될듯.
     @GetMapping("/presigned-url")
     @ResponseBody
     public String getURL(@RequestParam String filename) { // onchange에 getURL함수를 연동시켜놓음

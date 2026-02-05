@@ -2,13 +2,10 @@ package com.jhcompany.demo.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.net.Authenticator;
 
 @Controller
 @RequiredArgsConstructor // 이게 자동으로 repo를 초기화시켜줌
@@ -66,12 +63,5 @@ public class MemberController {
     }
 }
 
-class MemberDTO { // 장점 : DTO는 타입추론이 쉬움
-    public String username;
-    public String displayName;
 
-    MemberDTO(String username, String displayName) {
-        this.displayName = displayName;
-        this.username = username;
-    }
-}
+

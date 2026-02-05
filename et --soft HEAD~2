@@ -1,0 +1,83 @@
+[33mcommit b1b52ff28707fc056d7b2ac6bef14b4aea82e2e3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Thu Feb 5 22:23:04 2026 +0900
+
+    comment function and comment cannot save db
+
+[33mcommit ae28f63a2e857fb31f1c80fcff48764e695d4e4f[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Thu Feb 5 22:22:01 2026 +0900
+
+    comment function but cannot db save
+
+[33mcommit 0459b5a371e45881f27972a26c165dc64bf0276f[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Wed Feb 4 22:40:01 2026 +0900
+
+    aws 배포
+
+[33mcommit b4f726f8dd1a962f6b8431cd0316373027f8a3a5[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Tue Feb 3 17:55:01 2026 +0900
+
+    image upload
+
+[33mcommit 65cf07f723be604641f97a6d4056135f368c9f27[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Mon Feb 2 16:25:43 2026 +0900
+
+    extends DTO / pageable
+
+[33mcommit 3c88a4b44b4401b8d94f1cc1465175ff3fca8bd0[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Mon Feb 2 15:19:14 2026 +0900
+
+    user data connect spring security for login / csrf on
+
+[33mcommit ea59c573b70b1fbdc5ca8198af02a03108b6116f[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Sun Feb 1 11:36:33 2026 +0900
+
+    Save user login information to the database
+
+[33mcommit 844120b7ec29b21a5870531af00d7457bf35f0dc[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Sat Jan 31 21:52:37 2026 +0900
+
+    sign in
+
+[33mcommit 43839f7ed070c8f98727da6d1fa41b5de220d262[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Thu Jan 29 22:07:50 2026 +0900
+
+    AJAX 기반 Product delete 기능
+
+[33mcommit 3cbb42c503e20074c41092a23190919c0e8c3c27[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Thu Jan 29 19:09:18 2026 +0900
+
+    edit product / transactional / mvc service
+
+[33mcommit bc0af2d95a88df26a4e2d1c30593496cc272f4ba[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Wed Jan 28 23:03:00 2026 +0900
+
+    error Handler / PathVari / error.html
+
+[33mcommit 5516ced0b458fed7b025521b2b76d7e10178247e[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Mon Jan 26 19:00:26 2026 +0900
+
+    20260126 1st commit
+
+[33mcommit 45a3724e5943be426de797721669067c16379050[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Sun Jan 25 18:20:00 2026 +0900
+
+    Initial commit
+
+[33mcommit f0dace3ad9d0ce015f41ec2cd339ffd624ab6960[m
+Author: DREAMHAPPYLIFEJH <as990412@naver.com>
+Date:   Sun Jan 25 18:18:38 2026 +0900
+
+    first commit
