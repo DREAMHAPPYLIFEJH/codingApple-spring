@@ -1,10 +1,7 @@
 package com.jhcompany.demo.Item;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +12,7 @@ import lombok.ToString;
 // shop이라는 db안에 item, announcement라는 테이블을 만드는 것이다.
 @Entity
 @ToString // ToString함수를 자동으로 만들어줌
+@Table(indexes = @Index(columnList = "title", name = "작명")) // 특정 column으로 정렬하여 binary search를 적용할 수 있는 코드
 public class Item {
     // static은 원본 그대로를 사용하는 함수이다.
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Getter

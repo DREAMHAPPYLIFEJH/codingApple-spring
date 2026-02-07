@@ -1,5 +1,7 @@
 package com.jhcompany.demo.Item; // 파일의 경로가 이렇게 명시되어있지않으면 class를 쓸 수 없음
 
+import com.jhcompany.demo.comment.Comment;
+import com.jhcompany.demo.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +30,7 @@ import java.util.*;
 @Controller
 @RequiredArgsConstructor // final필드나 @NonNull이 붙은 필드에대한 생성자를 자동으로 생성
 public class ItemController {
-
+    private final CommentRepository commentRepository;
     private final ItemRepository itemRepository;
     private final ItemService itemService;
     private final S3service s3service;
@@ -44,6 +46,8 @@ public class ItemController {
     String list(Model model) {
         var result = itemRepository.findAll();
         model.addAttribute("items", result);
+        model.addAttribute("totalPages", 1);
+        model.addAttribute("currentPage", 15);
         return "/list";
     }
 
@@ -100,6 +104,9 @@ public class ItemController {
     @GetMapping("/detail/{id}") // {id} 자리에 들어온 값이 동적으로 컨트롤러 메서드로 전달됩니다.
     String detail1(@PathVariable Long id, Model model) {
         try {
+            List<Comment> commentResult = commentRepository.findAllByParentId(id);
+            model.addAttribute("comments", commentResult);
+
             Optional<Item> result = itemRepository.findById(id);
             if(result.isPresent()) {
                 model.addAttribute("data", result.get());
@@ -114,7 +121,8 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/test1") // query string 전송방식 : url 뒤에 ?이름=값&~~ 형식의 데이터를 나열하여 데이터를 전송
+    // query string 전송방식 : url 뒤에 ?이름=값&~~ 형식의 데이터를 나열하여 데이터를 전송
+    @GetMapping("/test1")
     String test1(@RequestParam String age) { // @RequestBody는 POST방식 body,
         System.out.println(age);
         return "redirect:/list";
@@ -149,6 +157,19 @@ public class ItemController {
         System.out.println(result);
         return result;
     }
+
+    // 검색 기능
+    // full text index : is, a, the같은 중요하지 않은 것을 제외한 단어장을 만들어줌, 단어를 검색 시간을 줄여줌(알고리즘?)
+    // n-gram parser : 문자를 n글자씩 추출해서 full text index를 생성함.
+    @PostMapping("/search")
+    public String postSearch(@RequestParam String searchText) {
+        var result = itemRepository.rawQuery1(searchText); // 행이 많아지면 느려짐. contains는 index사용X
+        System.out.println(result);
+        return "redirect:/list";
+    }
+
+    // 주문 기능
+    // 모든 버튼은 글을 발행해주는 기능임.
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handler(Exception e) {

@@ -21,8 +21,13 @@
 
     <form action="/comment" method="POST">
         <input name="content">
-        <input name="parentId" value="${data.id}" style="display : none">
+        <input name="parentId" th:value="${data.id}" style="display : none">
         <button type="submit">전송</button>
     </form>
+
+    <div class="comment" th:each="i : ${comments}">
+        <a th:text="${i.username}">유저명</a>
+        <a th:text="${i.content}">댓글</a>
+    </div>
 </body>
 </html>
