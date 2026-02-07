@@ -81,3 +81,68 @@
      border-color: #00b33c;
      font-weight: bold;
  }
+
+ .quantity-selector {
+     display: flex;
+     align-items: center;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+     overflow: hidden;
+     width: fit-content;
+ }
+
+ .quantity-btn {
+     width: 40px;
+     height: 40px;
+     border: none;
+     background: #f5f5f5;
+     cursor: pointer;
+     font-size: 18px;
+     font-weight: bold;
+     color: #333;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .quantity-btn:hover {
+     background: #e0e0e0;
+ }
+
+ .quantity-btn:active {
+     background: #d0d0d0;
+ }
+
+ .quantity-btn:disabled {
+     color: #ccc;
+     cursor: not-allowed;
+     background: #f5f5f5;
+ }
+
+ .quantity-display {
+     width: 60px;
+     height: 40px;
+     border: none;
+     border-left: 1px solid #ddd;
+     border-right: 1px solid #ddd;
+     text-align: center;
+     font-size: 16px;
+     font-weight: 500;
+     background: white;
+ }
+
+ .quantity-display:focus {
+     outline: none;
+ }
+
+ .product-actions {
+     display: flex;
+     gap: 10px;           /* 간격 */
+     align-items: center; /* 세로 중앙 정렬 */
+ }
+
+ .product-actions-wrapper {
+     display: flex;
+     justify-content: center;  /* 가로 중앙 */
+     margin: 20px 0;           /* 위아래 여백 */
+ }

@@ -19,6 +19,20 @@
         <p th:text="${data.price + '원'}">7억</p>
     </div>
 
+    <div class="product-actions-wrapper">
+        <div class="product-actions">
+            <div class="quantity-selector">
+                <button class="quantity-btn" onclick="decrease()">−</button>
+                <input type="text" class="quantity-display" id="quantity" value="1" readonly>
+                <button class="quantity-btn" onclick="increase()">+</button>
+            </div>
+
+            <div>
+                <button class="put-in-basket" onclick="">장바구니 담기</button>
+            </div>
+        </div>
+    </div>
+
     <form action="/comment" method="POST">
         <input name="content">
         <input name="parentId" th:value="${data.id}" style="display : none">
@@ -29,5 +43,27 @@
         <a th:text="${i.username}">유저명</a>
         <a th:text="${i.content}">댓글</a>
     </div>
+
+    <script>
+        let quantity = 0;
+
+        function decrease() {
+            if (quantity > 1) {  // 최소 수량 1
+                quantity--;
+                updateDisplay();
+            }
+        }
+
+        function increase() {
+            if (quantity < 99) {  // 최대 수량 99 (원하는 값으로 변경 가능)
+                quantity++;
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('quantity').value = quantity;
+        }
+    </script>
 </body>
 </html>
